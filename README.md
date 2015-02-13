@@ -8,7 +8,6 @@ The algorithm itself can extend to any type of graph, as they note in their pape
 Note this code only implements the TextRank algorithm itself, the sentences must be properly formatted upfront.  I have provided example tokenization for both tasks in the tests directory, both derived from tokenizing the Wikipedia entry for "Automatic summarization", both minimally processed using a custom (very minimal) tokenizer, and OpenNLP's default models for sentence splitting and POS, and converted to JSON.  As long as you get the format right that this is expecting, you should be able to use whatever library you want to preprocess.  The keyword extraction builder needs the format to include POS tags since it filters the content while it is building its adjacencies.  The sentence extraction builder does not require POS, but requires pre-split sentences.
 
 The "tests" are not currently testing anything, but serve as demonstration code for how to run the software.  Note that textRank() has a default number of iterations -- it doesnt try and test for convergence.  This is just to keep it simple, it would be simple to modify to test this instead, but for now you can pass in any number you want if that default isnt suitable (see test examples).
-```
 
 Build using Grunt:
 ```
