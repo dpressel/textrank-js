@@ -15,5 +15,18 @@ $ npm install
 $ grunt
 
 ```
+Here's what the output looks like for the first 5 extracted sentences:
 
+```
+automatic summarization is the process of reducing a text document with a computer program in order to create a summary that retains the most important points of the original document
+
+two particular types of summarization often addressed in the literature are keyphrase extraction where the goal is to select individual words or phrases to tag a document and document summarization where the goal is to select whole sentences to create a short paragraph summary
+
+in general abstraction can condense a text more strongly than extraction but the programs that can do this are harder to develop as they require the use of natural language generation technology which itself is a growing field
+
+while some work has been done in abstractive summarization creating an abstract synopsis like that of a human the majority of summarization systems are extractive selecting a subset of sentences to place in a summary
+
+apart from fully automated summarizers fas there are systems that aid users with the task of summarization mahs = machine aided human summarization for example by highlighting candidate passages to be included in the summary and there are systems that depend on post-processing by a human hams = human aided machine summarization
+
+```
 You are welcome to use this code for whatever nefarious purposes, but please attribute it to this implementation if you do.
