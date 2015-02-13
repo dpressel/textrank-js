@@ -15,7 +15,7 @@ $ npm install
 $ grunt
 
 ```
-Here's what the output looks like for the first 5 extracted sentences:
+Here's what the output looks like for the first 5 extracted sentences when performing the sentence extraction task:
 
 ```
 automatic summarization is the process of reducing a text document with a computer program in order to create a summary that retains the most important points of the original document
