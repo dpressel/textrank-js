@@ -74,18 +74,18 @@ function keyExGraph(text, win) {
     var winSz = win || 2;
     var halfN = winSz / 2.;
     var term2idx = {};
-    var n = 0;
+    var n = 1;
 
     function addIfNotPresent(term) {
         if (!term2idx[term]) {
             term2idx[term] = n++;
         }
-        return term2idx[term];
+        return term2idx[term] - 1;
     }
 
     for (var i = 0; i < sz; ++i) {
         var token = text[i];
-        if (!token.pos.match(/^[NJ]/) && token.pos !== 'ADJ') {
+        if (!token.pos.match(/^[NJ]/) && token.pos !== 'ADJ' && token.pos !== 'CD') {
             continue;
         }
         var minWin = Math.max(0, i - halfN);
@@ -95,39 +95,28 @@ function keyExGraph(text, win) {
                 continue;
             }
             var other = text[j];
-            if (!other.pos.match(/^[NJ]/) && other.pos !== 'ADJ') {
+            if (!other.pos.match(/^[NJ]/) && other.pos !== 'ADJ' && other.pos !== 'CD') {
                 continue;
             }
             var edge = [token.term, other.term];
             edge.sort();
+            edge = edge.join("____");
             edges[edge] = 1;
         }
     }
-    var vertices = [];
-    Object.keys(edges).forEach(function (edge) {
-        vertices = vertices.concat(edge.split(','));
-    });
-    vertices.forEach(function (v_i) {
-        var i, j;
-        for (var e in edges) {
-            var edge = e.split(',');
-            var thisFirst;
-            if (edge[0] === v_i) {
-                thisFirst = edge;
-            }
-            else if (edge[1] === v_i) {
-                thisFirst = [edge[1], edge[0]];
-            }
-            else {
-                continue;
-            }
-            i = addIfNotPresent(thisFirst[0]);
-            j = addIfNotPresent(thisFirst[1]);
-            V[i] = V[i] || {name: thisFirst[0], out: [], in: []};
-            V[i].out.push({index: j, weight: 1});
-            V[i].in.push({index: j, weight: 1});
-        }
-    });
+    
+    for (var e in edges) {
+        var thisFirst = e.split("____");
+        i = addIfNotPresent(thisFirst[0]);
+        j = addIfNotPresent(thisFirst[1]);
+        V[i] = V[i] || {me: i, name: thisFirst[0], out: [], in: []};
+        V[j] = V[j] || {me: j, name: thisFirst[1], out: [], in: []};
+        V[i].out.push({index: j, weight: 1});
+        V[i].in.push({index: j, weight: 1});
+        V[j].out.push({index: i, weight: 1});
+        V[j].in.push({index: i, weight: 1});
+    }
+
     return V;
 }
 
